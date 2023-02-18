@@ -1,8 +1,13 @@
+import React from "react";
+import Header from "./components/Header/Header";
+import TodoTable from "./components/Table/todoTable";
+
 function App() {
   return (
-    <div className="App">
-     hello again
-    </div>
+    <main>
+      <Header />
+      <TodoTable />
+    </main>
   );
 }
 
