@@ -2,15 +2,28 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { editTodo, deleteTodo } from '../../Redux/actions';
+import TodoEditor from "../editTodo/EditTodo";
 
 class TodoTable extends Component {
 constructor() {
   super();
-  this.state = {}
+  this.state = {
+    showEditTodo: false,
+    todoToEdit: null,
+  }
 }
 handleEdit = (todo) => {
-   
+  this.setState({
+    showEditTodo: !this.state.showEditTodo, 
+    todoToEdit: todo });
   console.log(`edita a tarefa ${todo.task}`)
+};
+
+handleCloseModal = () => {
+  this.setState({
+    showEditTodo: false,
+    todoToEdit: null,
+  });
 };
 
 handleDelete = (id) => {
@@ -23,6 +36,7 @@ handleDelete = (id) => {
 };
 
 render() {
+  const {showEditTodo, todoToEdit } = this.state;
   const { todos } = this.props;
   return(
     <div>
@@ -35,6 +49,13 @@ render() {
             <button onClick={() => this.handleEdit(todo)}>
               Editar
             </button>
+            { showEditTodo
+            && 
+            <TodoEditor
+              todoToEdit={todoToEdit}
+              onClose={this.handleCloseModal}
+            /> 
+            }
             <button onClick={() => this.handleDelete(todo.id)}>
               Excluir
             </button>

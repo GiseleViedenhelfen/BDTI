@@ -1,14 +1,19 @@
 import React,{ Component } from "react";
-import AddTodo from "../AddTodo/AddTodo";
+import TodoEditor from "../editTodo/EditTodo";
 
 class Header extends Component {
   constructor() {
     super();
     this.state = {
-      showAddTodo: false
+      showAddTodo: false,
+      showModalTodo: false,
     };
   }
-
+  handleCloseModal = () => {
+    this.setState({
+      showModalTodo: false,
+    });
+  };
   handleAddTodoClick = () => {
     this.setState({ showAddTodo: !this.state.showAddTodo });
   }
@@ -19,7 +24,7 @@ class Header extends Component {
       <section>
         <h1>Lista de Tarefas</h1>
         <button onClick={this.handleAddTodoClick}>Nova Tarefa</button>
-        { showAddTodo && <AddTodo /> }
+        { showAddTodo && <TodoEditor onClose={this.handleCloseModal}/> }
       </section>
       <section>
         <button>listar todas as tarefas</button>
