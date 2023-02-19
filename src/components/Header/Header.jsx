@@ -7,9 +7,9 @@ class Header extends Component {
     this.state = {
       showAddTodo: false
     };
-    this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
   }
-  handleAddTodoClick() {
+
+  handleAddTodoClick = () => {
     this.setState({ showAddTodo: !this.state.showAddTodo });
   }
   render() {
@@ -22,9 +22,9 @@ class Header extends Component {
         { showAddTodo && <AddTodo /> }
       </section>
       <section>
-        <h3>listar todas as tarefas</h3>
-        <h3>listar tarefas concluídas</h3>
-        <h3>listar tarefas a fazer</h3>
+        <button>listar todas as tarefas</button>
+        <button>listar tarefas concluídas</button>
+        <button>listar tarefas a fazer</button>
       </section>
   </header>
     )

@@ -6,3 +6,7 @@ export const editTodo = (edit) => ({
   type: 'EDIT',
   payload: edit,
 });
+export const deleteTodo = (del) => ({
+  type: 'DELETE',
+  payload: del
+})

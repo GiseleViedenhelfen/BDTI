@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import { editTodo } from '../../Redux/actions';
+import { editTodo, deleteTodo } from '../../Redux/actions';
 
 class TodoTable extends Component {
 constructor() {
@@ -15,6 +15,11 @@ handleEdit = (todo) => {
 
 handleDelete = (id) => {
   console.log(`exclui a tarefa ${id}`)
+  const confirmDelete = window
+    .confirm("Tem certeza que deseja excluir esta tarefa?");
+  if (confirmDelete) {
+    this.props.deleteTodo(id);
+  }
 };
 
 render() {
@@ -51,7 +56,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    editTodo: (todo) => dispatch(editTodo(todo))
+    editTodo: (todo) => dispatch(editTodo(todo)),
+    deleteTodo: (id) => dispatch(deleteTodo(id))
   }
 }
 
@@ -62,6 +68,9 @@ TodoTable.propTypes = {
       task: PropTypes.string.isRequired,
       status: PropTypes.oneOf(['New', 'In-progress', 'Done']).isRequired
     })
-  ).isRequired
+  ).isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  editTodo: PropTypes.func.isRequired,
+
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TodoTable);
