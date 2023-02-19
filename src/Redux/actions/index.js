@@ -1,12 +1,8 @@
 export const addTodo = (add) => ({
   type: 'ADD',
-  add,
+  payload: add,
 });
-export const EditTodo = (edit) => ({
+export const editTodo = (edit) => ({
   type: 'EDIT',
-  edit,
-});
-export const DeleteTodo = (del) => ({
-  type: 'DELETE',
-  ...del,
+  payload: edit,
 });

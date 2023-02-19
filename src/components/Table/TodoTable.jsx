@@ -1,6 +1,20 @@
 import React from "react";
+import { connect } from "react-redux";
+import { editTodo } from '../../Redux/actions';
 
-const TodoTable = () => {
+const TodoTable = ({ todos, editTodo }) => {
+
+  const handleEdit = (todo) => {
+    const editedTodo = {
+      ...todo,
+    //  status: 'editing',
+    };
+    editTodo(editedTodo);
+  };
+
+  const handleDelete = (id) => {
+    // implementar ação de excluir tarefa
+  };
   return(
     <table>
       <thead>
@@ -12,21 +26,33 @@ const TodoTable = () => {
         </tr>
       </thead>
       <tbody>
-          <td>Tarefas do Redux</td>
-          <td>Status do redux</td>
-          <td>
-            <button>
-              editar informacoes da tarefa ou status no redux
-            </button>
-          </td>
-          <td>
-            <button>
-              excluir tarefa no redux
-            </button>
-          </td>
+        { todos.map((todo) => (
+          <tr key={todo.id}>
+            <td>{todo.task}</td>
+            <td>{todo.status}</td>
+            <td>
+              <button onClick={() => handleEdit(todo)}>
+                Editar
+              </button>
+            </td>
+            <td>
+              <button onClick={() => handleDelete(todo.id)}>
+                Excluir
+              </button>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   )
 }
 
-export default TodoTable;
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todoReducer.todos,
+  };
+};
+const mapDispatchToProps = {
+  editTodo,
+}
+export default connect(mapStateToProps, mapDispatchToProps)(TodoTable);
