@@ -1,27 +1,23 @@
-import React, { Component } from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class TodoForm extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const {
-      status,
-      inputValue,
-      handleChange,
-      handleStatusChange,
-      handleClick,
-    } = this.props
-    return (
+function TodoForm(props) {
+  const {
+    status,
+    inputValue,
+    handleChange,
+    handleStatusChange,
+    handleClick,
+  } = props;
+  return (
     <form>
       <label htmlFor="todo-input">
         Tarefa:
         <input
           type="text"
           id="todo-input"
-          value={ inputValue }
-          onChange={ handleChange }
+          value={inputValue}
+          onChange={handleChange}
         />
       </label>
       <select value={status} onChange={handleStatusChange}>
@@ -33,9 +29,9 @@ class TodoForm extends Component {
         Adicionar
       </button>
     </form>
-    )
-  }
+  );
 }
+
 TodoForm.propTypes = {
   status: PropTypes.string.isRequired,
   inputValue: PropTypes.string.isRequired,
@@ -43,4 +39,5 @@ TodoForm.propTypes = {
   handleStatusChange: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
+
 export default TodoForm;

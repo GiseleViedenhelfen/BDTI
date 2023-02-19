@@ -8,5 +8,5 @@ export const editTodo = (edit) => ({
 });
 export const deleteTodo = (del) => ({
   type: 'DELETE',
-  payload: del
-})
+  payload: del,
+});
