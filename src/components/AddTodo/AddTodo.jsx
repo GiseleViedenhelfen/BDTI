@@ -1,4 +1,5 @@
 import React,{ Component } from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { addTodo } from "../../Redux/actions";
 
@@ -7,7 +8,9 @@ class AddTodo extends Component {
     super();
     // inicia os valores zerados
     this.state = {
+      id: 0,
       task: '',
+      status: 'New',
       inputValue: ''
     };
   }
@@ -22,15 +25,18 @@ class AddTodo extends Component {
       task: newTask.trim(),
     })
   }
+  handleStatusChange = ({target}) => {
+    this.setState({ status: target.value });
+  }
   handleClick = () => {
     //pega o valor da task a ser salva
-    const {task} = this.state;
+    const {task,status, id} = this.state;
     // pega a action via props
     const { addTodo } = this.props;
     // adiciona o valor da task no estado global
-    addTodo(task);
+    addTodo({id: id, task: task, status: status });
     // uma vez salvo no estado global, limpa o input de texto
-    this.setState({inputValue: ''})
+    this.setState({ id: id + 1, inputValue: '', status: 'New'})
   }
 
   render() {
@@ -46,7 +52,11 @@ class AddTodo extends Component {
           onChange={ this.handleChange }
         />
       </label>
-
+      <select value={this.state.status} onChange={this.handleStatusChange}>
+        <option value="New">Inicial</option>
+        <option value="In-progress">Em andamento</option>
+        <option value="Done">Finalizada</option>
+      </select>
       <button type="button" onClick={this.handleClick}>
         Adicionar
       </button>
@@ -59,5 +69,7 @@ const mapDispatchToProps = (dispatch) => {
     addTodo: (newTodo) => dispatch(addTodo(newTodo)),
   };
 };
-
+AddTodo.propTypes = {
+  addTodo: PropTypes.func.isRequired,
+};
 export default connect(null, mapDispatchToProps)(AddTodo);

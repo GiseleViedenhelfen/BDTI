@@ -1,48 +1,67 @@
-import React from "react";
+import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-// import { editTodo } from '../../Redux/actions';
+import { editTodo } from '../../Redux/actions';
 
-const TodoTable = () => {
-  // const { todos } = this.props;
-  // console.log(todos)
-  const handleEdit = (todo) => {
+class TodoTable extends Component {
+constructor() {
+  super();
+  this.state = {}
+}
+handleEdit = (todo) => {
    
-    console.log(`edita a tarefa ${todo}`)
-  };
+  console.log(`edita a tarefa ${todo.task}`)
+};
 
-  const handleDelete = (id) => {
-    console.log(`exclui a tarefa ${id}`)
-  };
+handleDelete = (id) => {
+  console.log(`exclui a tarefa ${id}`)
+};
+
+render() {
+  const { todos } = this.props;
   return(
-    <ul>
-      <li>
-        { todos.map((todo) => (
-          <tr key={todo.id}>
-            <td>{todo.task}</td>
-            <td>{todo.status}</td>
-            <td>
-              <button onClick={() => handleEdit(todo)}>
-                Editar
-              </button>
-            </td>
-            <td>
-              <button onClick={() => handleDelete(todo.id)}>
-                Excluir
-              </button>
-            </td>
-          </tr>
-        ))}
-      </li>
-    </ul>
+    <div>
+      { todos &&
+      todos.map((todo) => (
+        <ul key={todo.id}>
+          <li>
+            <span>{todo.task}</span>
+            <span>{todo.status}</span>
+            <button onClick={() => this.handleEdit(todo)}>
+              Editar
+            </button>
+            <button onClick={() => this.handleDelete(todo.id)}>
+              Excluir
+            </button>
+          </li>
+        </ul>
+      ))
+    }
+    </div>
   )
 }
+}
+
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
-    todos: state.todoReducer.todos,
+    todos: state.todos,
   };
 };
-const mapDispatchToProps = {
-  todos: todoReducer.todos,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editTodo: (todo) => dispatch(editTodo(todo))
+  }
 }
+
+TodoTable.propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      task: PropTypes.string.isRequired,
+      status: PropTypes.oneOf(['New', 'In-progress', 'Done']).isRequired
+    })
+  ).isRequired
+};
 export default connect(mapStateToProps, mapDispatchToProps)(TodoTable);
