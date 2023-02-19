@@ -2,8 +2,8 @@ import React,{ Component } from "react";
 import AddTodo from "../AddTodo/AddTodo";
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       showAddTodo: false
     };
