@@ -1,31 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
-import { editTodo } from '../../Redux/actions';
+// import { editTodo } from '../../Redux/actions';
 
-const TodoTable = ({ todos, editTodo }) => {
-
+const TodoTable = () => {
+  // const { todos } = this.props;
+  // console.log(todos)
   const handleEdit = (todo) => {
-    const editedTodo = {
-      ...todo,
-    //  status: 'editing',
-    };
-    editTodo(editedTodo);
+   
+    console.log(`edita a tarefa ${todo}`)
   };
 
   const handleDelete = (id) => {
-    // implementar ação de excluir tarefa
+    console.log(`exclui a tarefa ${id}`)
   };
   return(
-    <table>
-      <thead>
-        <tr>
-          <th>tarefa</th>
-          <th>status atual</th>
-          <th>editar</th>
-          <th>excluir</th>
-        </tr>
-      </thead>
-      <tbody>
+    <ul>
+      <li>
         { todos.map((todo) => (
           <tr key={todo.id}>
             <td>{todo.task}</td>
@@ -42,8 +32,8 @@ const TodoTable = ({ todos, editTodo }) => {
             </td>
           </tr>
         ))}
-      </tbody>
-    </table>
+      </li>
+    </ul>
   )
 }
 
@@ -53,6 +43,6 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = {
-  editTodo,
+  todos: todoReducer.todos,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(TodoTable);

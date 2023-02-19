@@ -1,16 +1,24 @@
-import React,{ useState } from "react";
+import React,{ Component } from "react";
 import AddTodo from "../AddTodo/AddTodo";
-const Header = () => {
-  const [showAddTodo, setShowAddTodo] = useState(false);
 
-  const handleAddTodoClick = () => {
-    setShowAddTodo(!showAddTodo);
-  };
-  return (
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAddTodo: false
+    };
+    this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
+  }
+  handleAddTodoClick() {
+    this.setState({ showAddTodo: !this.state.showAddTodo });
+  }
+  render() {
+    const { showAddTodo } = this.state;
+    return(
     <header>
       <section>
         <h1>Lista de Tarefas</h1>
-        <button onClick={handleAddTodoClick}>Nova Tarefa</button>
+        <button onClick={this.handleAddTodoClick}>Nova Tarefa</button>
         { showAddTodo && <AddTodo /> }
       </section>
       <section>
@@ -18,9 +26,9 @@ const Header = () => {
         <h3>listar tarefas concluídas</h3>
         <h3>listar tarefas a fazer</h3>
       </section>
-      
-    </header>
-  )
+  </header>
+    )
+  }
 }
 
 export default Header;

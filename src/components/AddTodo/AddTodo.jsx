@@ -1,8 +1,9 @@
 import React,{ useState } from "react";
 import { connect } from "react-redux";
 import { addTodo } from "../../Redux/actions";
-const AddTodo = ({ addTodo }) => {
 
+const AddTodo = ({ addTodo }) => {
+  // const { addTodo } = this.props;
   const [newTodo, setNewTodo] = useState('');
   const [inputValue, setInputValue] = useState('');
 
