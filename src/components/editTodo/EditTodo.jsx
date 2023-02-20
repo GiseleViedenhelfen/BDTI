@@ -34,9 +34,9 @@ class TodoEditor extends Component {
     });
   };
 
-  handleStatusChange = ({ target }) => {
-    this.setState({ status: target.value });
-  };
+  // handleStatusChange = ({ target }) => {
+  //   this.setState({ status: target.value });
+  // };
 
   handleClick = () => {
     // pega o valor da task a ser salva
@@ -55,7 +55,8 @@ class TodoEditor extends Component {
 
   render() {
     const {
-      inputValue, status,
+      inputValue,
+      // status,
     } = this.state;
     return (
       <div className="modal">
@@ -70,11 +71,10 @@ class TodoEditor extends Component {
               onChange={this.handleChange}
             />
           </label>
-          <select value={status} onChange={this.handleStatusChange}>
-            <option value="New">Inicial</option>
+          {/* <select value={status} onChange={this.handleStatusChange}>
             <option value="In-progress">Em andamento</option>
             <option value="Done">Finalizada</option>
-          </select>
+          </select> */}
           <button type="button" onClick={this.handleClick}>
             Adicionar
           </button>
@@ -91,7 +91,7 @@ TodoEditor.propTypes = {
   todoToEdit: PropTypes.shape({
     id: PropTypes.number.isRequired,
     task: PropTypes.string.isRequired,
-    status: PropTypes.oneOf(['New', 'In-progress', 'Done']).isRequired,
+    status: PropTypes.oneOf(['In-progress', 'Done']).isRequired,
   }).isRequired,
   onClose: PropTypes.func.isRequired,
 };

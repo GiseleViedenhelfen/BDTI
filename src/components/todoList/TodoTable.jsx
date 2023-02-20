@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteTodo as deleteTodoAction } from '../../Redux/actions';
+import { deleteTodo as deleteTodoAction, editTodo as editTodoAction } from '../../Redux/actions';
 import TodoEditor from '../editTodo/EditTodo';
 import './Style.css';
+// import { connect } from 'react-redux';
+// import { editTodo as editTodoAction } from '../../Redux/actions';
 
 class TodoTable extends Component {
   constructor() {
@@ -20,13 +22,18 @@ class TodoTable extends Component {
       arr.map((todo) => (
         <ul key={todo.id}>
           <li className="ul-task">
+            <input
+              type="checkbox"
+              onChange={() => this.handleCheck(todo)}
+            />
             <span>{todo.task}</span>
             <span>{todo.status}</span>
             <button type="button" onClick={() => this.handleEdit(todo)}>
               Editar
             </button>
             {/* renderiza o todoEditor apenas para a tarefa em edicao */}
-            { showEditTodo && todo.id === todoToEdit.id
+            { showEditTodo
+            && todo.id === todoToEdit.id
             && (
               <div>
                 <TodoEditor
@@ -48,6 +55,13 @@ class TodoTable extends Component {
     const { showEditTodo } = this.state;
     // atualiza no estado se o modal deve estar visivel ou nao e qual a tarefa a editar
     this.setState({ showEditTodo: !showEditTodo, todoToEdit: todo });
+  };
+
+  handleCheck = (todo) => {
+    // Cria o toggle para trocar o status da tarefa de nova ou feita
+    const { editTodo } = this.props;
+    const newStatus = todo.status === 'Done' ? 'In-progress' : 'Done';
+    editTodo({ ...todo, status: newStatus });
   };
 
   handleCloseModal = () => {
@@ -119,6 +133,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   deleteTodo: (id) => dispatch(deleteTodoAction(id)),
+  editTodo: (newTodo) => dispatch(editTodoAction(newTodo)),
 });
 
 TodoTable.propTypes = {
@@ -126,10 +141,11 @@ TodoTable.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       task: PropTypes.string.isRequired,
-      status: PropTypes.oneOf(['New', 'In-progress', 'Done']).isRequired,
+      status: PropTypes.oneOf(['In-progress', 'Done']).isRequired,
     }),
   ).isRequired,
   deleteTodo: PropTypes.func.isRequired,
+  editTodo: PropTypes.func.isRequired,
 
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TodoTable);

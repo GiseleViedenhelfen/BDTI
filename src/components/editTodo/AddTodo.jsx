@@ -38,7 +38,7 @@ class AddTodo extends Component {
     const { addTodo, onClose } = this.props;
     // adiciona o valor da task no estado global, chamando a action addTodo
     // e cria as novas tarefas com o status de nova
-    addTodo({ id, task, status: 'New' });
+    addTodo({ id, task, status: 'In-progress' });
     // atualiza o valor do id
     this.setState({ id: id + 1 });
     onClose();
