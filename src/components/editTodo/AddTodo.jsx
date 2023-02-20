@@ -29,7 +29,10 @@ class AddTodo extends Component {
     // compara se houve alterações no redux, caso tenha, registra no id
     if (prevProps.todos !== todos) {
       const copyTodo = [...todos];
-      const newid = copyTodo.pop().id + 1;
+      // checa se o array nao foi esvaziado por deletar todas as tasks
+      const checkTodo = copyTodo.length > 0;
+      // se estiver vazio, seta o id para 0, se n, segue a mesma ideia do didMount
+      const newid = checkTodo ? copyTodo.pop().id + 1 : 0;
       this.setState({ id: newid });
     }
   }

@@ -6,9 +6,9 @@ import {
   countTodos as countTodoAction,
 } from '../../Redux/actions';
 import TodoEditor from '../editTodo/EditTodo';
-import './Style.css';
 import editIcon from '../../assets/icons/pencil-simple-line.png';
 import deleteIcon from '../../assets/icons/trash.png';
+import './Style.css';
 
 class TodoTable extends Component {
   constructor() {
@@ -34,28 +34,30 @@ class TodoTable extends Component {
     }
   }
 
-  renderTodos = (arr) => {
+  renderTodos = (todos) => {
     const { showEditTodo, todoToEdit } = this.state;
     return (
-      arr.map((todo) => (
+      todos.map((todo) => (
         <ul key={todo.id}>
           <li className="ul-task">
-            <label className="checkbox-icon" htmlFor={todo.id}>
-              <input
-                id={todo.id}
-                type="checkbox"
-                checked={todo.status === 'Done'}
-                onChange={() => this.handleCheck(todo)}
-              />
-              <li className="icon" />
-            </label>
-            <span style={{
-              textDecoration: todo.status === 'Done' ? 'line-through' : 'none',
-              color: todo.status === 'Done' ? 'red' : 'black',
-            }}
-            >
-              {todo.task}
-            </span>
+            <div className="checkbox-text">
+              <label className="checkbox-icon" htmlFor={todo.id}>
+                <input
+                  id={todo.id}
+                  type="checkbox"
+                  checked={todo.status === 'Done'}
+                  onChange={() => this.handleCheck(todo)}
+                />
+                <li className="icon" />
+              </label>
+              <span style={{
+                textDecoration: todo.status === 'Done' ? 'line-through' : 'none',
+                color: todo.status === 'Done' ? 'red' : 'black',
+              }}
+              >
+                {todo.task}
+              </span>
+            </div>
             <div className="btn-table-container">
               <button type="button" onClick={() => this.handleEdit(todo)}>
                 <img src={editIcon} alt="edit-icon" width="20px" />
@@ -66,7 +68,8 @@ class TodoTable extends Component {
               </button>
 
             </div>
-            { showEditTodo
+          </li>
+          { showEditTodo
             && todo.id === todoToEdit.id
             && (
               <div>
@@ -79,7 +82,6 @@ class TodoTable extends Component {
                 />
               </div>
             )}
-          </li>
         </ul>
       ))
     );
@@ -140,19 +142,19 @@ class TodoTable extends Component {
             type="button"
             onClick={() => this.setState({ filter: null })}
           >
-            {`listar todas as tarefas (${countTodosByStatus.Total ? countTodosByStatus.Total : 0})`}
+            {`Todas (${countTodosByStatus.Total ? countTodosByStatus.Total : 0})`}
           </button>
           <button
             type="button"
             onClick={() => this.setState({ filter: 'InProgress' })}
           >
-            {`listar tarefas a fazer (${countTodosByStatus.InProgress ? countTodosByStatus.InProgress : 0})`}
+            {`Em andamento (${countTodosByStatus.InProgress ? countTodosByStatus.InProgress : 0})`}
           </button>
           <button
             type="button"
             onClick={() => this.setState({ filter: 'Done' })}
           >
-            {`listar tarefas a fazer (${countTodosByStatus.Done ? countTodosByStatus.Done : 0})`}
+            {`Concluídas (${countTodosByStatus.Done ? countTodosByStatus.Done : 0})`}
           </button>
         </section>
         {this.getTodosByFilter(filter)}

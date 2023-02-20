@@ -53,26 +53,28 @@ class TodoEditor extends Component {
   render() {
     const { inputValue, btnDisable } = this.state;
     return (
-      <div>
-        <h2>Editar Tarefa</h2>
-        <form>
-          <label htmlFor="todo-input">
-            Tarefa:
-            <input
-              type="text"
-              id="todo-input"
-              value={inputValue}
-              onChange={this.handleChange}
-            />
-          </label>
-          <button
-            disabled={btnDisable}
-            type="button"
-            onClick={this.handleClick}
-          >
-            <img src={saveIcon} alt="save-icon" width="20px" />
-          </button>
-          { btnDisable
+      <div className="overlay">
+        <div className="popup">
+          <form>
+            <label htmlFor="todo-edit-input">
+              <input
+                type="text"
+                id="todo-edit-input"
+                placeholder="Caso desista de editar, use a seta para voltar"
+                value={inputValue}
+                onChange={this.handleChange}
+              />
+            </label>
+            <div className="edit-btn-container">
+              <button
+                disabled={btnDisable}
+                type="button"
+                onClick={this.handleClick}
+              >
+                <img src={saveIcon} alt="save-icon" width="20px" />
+              </button>
+
+              { btnDisable
           && (
           // adiciona botao para retornar caso nao queira mais editar a tarefa
           <button
@@ -82,7 +84,9 @@ class TodoEditor extends Component {
             <img src={arrowLeft} alt="arrow-icon" width="20px" />
           </button>
           )}
-        </form>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

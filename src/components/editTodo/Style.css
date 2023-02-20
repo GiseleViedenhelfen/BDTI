@@ -1,5 +1,4 @@
 .add-task-container {
-  /* border: 1px solid black; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,5 +8,44 @@
 #todo-input {
   border-radius: 5px;
   padding: 0.5rem;
-  width: 40%;
+  width: 60%;
+  border: 1px solid #334a54;
+}
+.checkbox-text {
+  display: flex;
+  align-items: center;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.popup #todo-edit-input {
+  border-radius: 5px;
+  padding: 0.5rem;
+  width: 20rem;
+}
+.popup .edit-btn-container {
+  width: 5rem;
+  padding: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-around;
+}
+.popup {
+  background: linear-gradient(90deg, rgb(194, 182, 182) 0%, #eee8e8 100%);
+  width: 30rem;
+  padding: 1rem;
+  border-radius: 5px;
 }
