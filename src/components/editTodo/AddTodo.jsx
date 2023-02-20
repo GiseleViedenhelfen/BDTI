@@ -1,26 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { editTodo as editTodoAction } from '../../Redux/actions';
+import { addTodo as addTodoAction } from '../../Redux/actions';
 
-class TodoEditor extends Component {
-  constructor(props) {
-    super(props);
-
-    const {
-      id,
-      task,
-      status,
-    } = props.todoToEdit;
+class AddTodo extends Component {
+  constructor() {
+    super();
     this.state = {
-      id,
-      task,
-      status,
-      inputValue: task,
+      id: 0,
+      task: '',
+      inputValue: '',
     };
-  }
-
-  componentDidMount() {
   }
 
   handleChange = ({ target }) => {
@@ -34,32 +24,33 @@ class TodoEditor extends Component {
     });
   };
 
-  handleStatusChange = ({ target }) => {
-    this.setState({ status: target.value });
-  };
+  // handleStatusChange = ({ target }) => {
+  //   // atualiza o input de status
+  //   this.setState({ status: target.value });
+  // };
 
   handleClick = () => {
-    // pega o valor da task a ser salva
     const {
-      id, task, status,
+      task, id,
     } = this.state;
     // pega a action via props e a funcao para fechar o modal quando
     // terminar de editar a tarefa
-    const { onClose, editTodo } = this.props;
-    // adiciona o valor da task no estado global se for uma tarefa nova,
-    // chama a action addTodo, se nao chama a editTodo
-    // const newId = id + 1;
-    editTodo({ id, task, status });
+    const { addTodo, onClose } = this.props;
+    // adiciona o valor da task no estado global, chamando a action addTodo
+    // e cria as novas tarefas com o status de nova
+    addTodo({ id, task, status: 'New' });
+    // atualiza o valor do id
+    this.setState({ id: id + 1 });
     onClose();
   };
 
   render() {
     const {
-      inputValue, status,
+      inputValue,
     } = this.state;
     return (
       <div className="modal">
-        <h2>Editar Tarefa</h2>
+        <h2>Adicionar Tarefa</h2>
         <form>
           <label htmlFor="todo-input">
             Tarefa:
@@ -70,11 +61,6 @@ class TodoEditor extends Component {
               onChange={this.handleChange}
             />
           </label>
-          <select value={status} onChange={this.handleStatusChange}>
-            <option value="New">Inicial</option>
-            <option value="In-progress">Em andamento</option>
-            <option value="Done">Finalizada</option>
-          </select>
           <button type="button" onClick={this.handleClick}>
             Adicionar
           </button>
@@ -84,15 +70,15 @@ class TodoEditor extends Component {
   }
 }
 const mapDispatchToProps = (dispatch) => ({
-  editTodo: (newTodo) => dispatch(editTodoAction(newTodo)),
+  addTodo: (newTodo) => dispatch(addTodoAction(newTodo)),
 });
-TodoEditor.propTypes = {
-  editTodo: PropTypes.func.isRequired,
-  todoToEdit: PropTypes.shape({
+AddTodo.propTypes = {
+  addTodo: PropTypes.func.isRequired,
+  todos: PropTypes.shape({
     id: PropTypes.number.isRequired,
     task: PropTypes.string.isRequired,
     status: PropTypes.oneOf(['New', 'In-progress', 'Done']).isRequired,
   }).isRequired,
   onClose: PropTypes.func.isRequired,
 };
-export default connect(null, mapDispatchToProps)(TodoEditor);
+export default connect(null, mapDispatchToProps)(AddTodo);

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteTodo as deleteTodoAction } from '../../Redux/actions';
 import TodoEditor from '../editTodo/EditTodo';
+import './Style.css';
 
 class TodoTable extends Component {
   constructor() {
@@ -13,56 +14,101 @@ class TodoTable extends Component {
     };
   }
 
-  handleEdit = (todo) => {
-    this.setState((prevState) => ({
-      showEditTodo: !prevState.showEditTodo,
-      todoToEdit: todo,
-    }));
-  };
-
-  handleCloseModal = () => {
-    this.setState({
-      showEditTodo: false,
-      todoToEdit: null,
-    });
-  };
-
-  handleDelete = (id) => {
-    const { deleteTodo } = this.props;
-    const confirmDelete = window
-      .confirm('Tem certeza que deseja excluir esta tarefa?');
-    if (confirmDelete) {
-      deleteTodo(id);
-    }
-  };
-
-  render() {
+  renderTodos = (arr) => {
     const { showEditTodo, todoToEdit } = this.state;
-    const { tasks } = this.props;
     return (
-      <div>
-        { tasks
-      && tasks.map((todo) => (
+      arr.map((todo) => (
         <ul key={todo.id}>
-          <li>
+          <li className="ul-task">
             <span>{todo.task}</span>
             <span>{todo.status}</span>
             <button type="button" onClick={() => this.handleEdit(todo)}>
               Editar
             </button>
-            { showEditTodo
+            {/* renderiza o todoEditor apenas para a tarefa em edicao */}
+            { showEditTodo && todo.id === todoToEdit.id
             && (
-            <TodoEditor
-              todoToEdit={todoToEdit}
-              onClose={this.handleCloseModal}
-            />
+              <div>
+                <TodoEditor
+                  todoToEdit={todoToEdit}
+                  onClose={this.handleCloseModal}
+                />
+              </div>
             )}
             <button type="button" onClick={() => this.handleDelete(todo.id)}>
               Excluir
             </button>
           </li>
         </ul>
-      ))}
+      ))
+    );
+  };
+
+  handleEdit = (todo) => {
+    const { showEditTodo } = this.state;
+    // atualiza no estado se o modal deve estar visivel ou nao e qual a tarefa a editar
+    this.setState({ showEditTodo: !showEditTodo, todoToEdit: todo });
+  };
+
+  handleCloseModal = () => {
+    // funcao para fechar o modal quando a tarefa for atualizada
+    this.setState({
+      showEditTodo: false,
+      todoToEdit: null,
+      filter: null,
+    });
+  };
+
+  handleDelete = (id) => {
+    const { deleteTodo } = this.props;
+    // abre um prompt para confirmacao antes de deletar
+    const confirmDelete = window
+      .confirm('Tem certeza que deseja excluir esta tarefa?');
+      // havendo a confirmacao, chama a action de deletar a tarefa
+    if (confirmDelete) {
+      deleteTodo(id);
+    }
+  };
+
+  getTodosByFilter = (type) => {
+    const { todos } = this.props;
+    // filtra as tarefas por status caso nao seja nem fazendo nem feitas, mostra todas
+    switch (type) {
+      case 'In-progress':
+        return this.renderTodos(todos.filter((task) => task.status === 'In-progress'));
+      case 'Done':
+        return this.renderTodos(todos.filter((task) => task.status === 'Done'));
+      default:
+        return this.renderTodos(todos);
+    }
+  };
+
+  render() {
+    const { filter } = this.state;
+    return (
+      <div>
+        <section className="todo-type-container">
+          <button
+            type="button"
+            onClick={() => this.setState({ filter: null })}
+          >
+            listar todas as tarefas
+          </button>
+          <button
+            type="button"
+            onClick={() => this.setState({ filter: 'In-progress' })}
+          >
+            listar tarefas a fazer
+
+          </button>
+          <button
+            type="button"
+            onClick={() => this.setState({ filter: 'Done' })}
+          >
+            listar tarefas concluídas
+          </button>
+        </section>
+        {this.getTodosByFilter(filter)}
       </div>
     );
   }
@@ -76,7 +122,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 TodoTable.propTypes = {
-  tasks: PropTypes.arrayOf(
+  todos: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       task: PropTypes.string.isRequired,
