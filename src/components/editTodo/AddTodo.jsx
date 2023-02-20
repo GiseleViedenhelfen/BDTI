@@ -82,6 +82,7 @@ class AddTodo extends Component {
           />
           <button
             type="button"
+            title="Salvar tarefa"
             disabled={btnDisable}
             onClick={this.handleClick}
           >

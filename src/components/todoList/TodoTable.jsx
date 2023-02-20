@@ -37,53 +37,65 @@ class TodoTable extends Component {
   renderTodos = (todos) => {
     const { showEditTodo, todoToEdit } = this.state;
     return (
-      todos.map((todo) => (
-        <ul key={todo.id}>
-          <li className="ul-task">
-            <div className="checkbox-text">
-              <label className="checkbox-icon" htmlFor={todo.id}>
-                <input
-                  id={todo.id}
-                  type="checkbox"
-                  checked={todo.status === 'Done'}
-                  onChange={() => this.handleCheck(todo)}
-                />
-                <li className="icon" />
-              </label>
-              <span style={{
-                textDecoration: todo.status === 'Done' ? 'line-through' : 'none',
-                color: todo.status === 'Done' ? 'red' : 'black',
-              }}
-              >
-                {todo.task}
-              </span>
-            </div>
-            <div className="btn-table-container">
-              <button type="button" onClick={() => this.handleEdit(todo)}>
-                <img src={editIcon} alt="edit-icon" width="20px" />
-              </button>
-              {/* renderiza o todoEditor apenas para a tarefa em edicao */}
-              <button type="button" onClick={() => this.handleDelete(todo.id)}>
-                <img src={deleteIcon} alt="delete-icon" width="20px" />
-              </button>
+      <ul>
+        {
+           todos.map((todo) => (
+             <div>
+               <li className="ul-task" key={todo.id}>
+                 <div className="checkbox-text">
+                   <label className="checkbox-icon" htmlFor={todo.id}>
+                     <input
+                       id={todo.id}
+                       type="checkbox"
+                       checked={todo.status === 'Done'}
+                       onChange={() => this.handleCheck(todo)}
+                     />
+                     <li className="icon" />
+                   </label>
+                   <span style={{
+                     textDecoration: todo.status === 'Done' ? 'line-through' : 'none',
+                     color: todo.status === 'Done' ? 'red' : 'black',
+                   }}
+                   >
+                     {todo.task}
+                   </span>
+                 </div>
+                 <div className="btn-table-container">
+                   <button
+                     type="button"
+                     title="Editar tarefa"
+                     onClick={() => this.handleEdit(todo)}
+                   >
+                     <img src={editIcon} alt="edit-icon" width="20px" />
+                   </button>
+                   {/* renderiza o todoEditor apenas para a tarefa em edicao */}
+                   <button
+                     type="button"
+                     title="Excluir tarefa"
+                     onClick={() => this.handleDelete(todo.id)}
+                   >
+                     <img src={deleteIcon} alt="delete-icon" width="20px" />
+                   </button>
 
-            </div>
-          </li>
-          { showEditTodo
-            && todo.id === todoToEdit.id
-            && (
-              <div>
-                <TodoEditor
-                // passa a tarefa e a funcao para fechar o modal
-                // a ser editada via prop. Optei por nao salvá-los no redux
-                // por serem transmitidos apenas para o editTodo
-                  todoToEdit={todoToEdit}
-                  onClose={this.handleCloseModal}
-                />
-              </div>
-            )}
-        </ul>
-      ))
+                 </div>
+               </li>
+               { showEditTodo
+                && todo.id === todoToEdit.id
+                && (
+                  <div>
+                    <TodoEditor
+                    // passa a tarefa e a funcao para fechar o modal
+                    // a ser editada via prop. Optei por nao salvá-los no redux
+                    // por serem transmitidos apenas para o editTodo
+                      todoToEdit={todoToEdit}
+                      onClose={this.handleCloseModal}
+                    />
+                  </div>
+                )}
+             </div>
+           ))
+}
+      </ul>
     );
   };
 
@@ -101,11 +113,9 @@ class TodoTable extends Component {
   };
 
   handleCloseModal = () => {
-    // funcao para fechar o modal quando a tarefa for atualizada
+    // funcao para fechar o popup quando a tarefa for atualizada ou desejar voltar
     this.setState({
       showEditTodo: false,
-      todoToEdit: null,
-      filter: null,
     });
   };
 

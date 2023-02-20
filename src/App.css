@@ -16,3 +16,16 @@ button {
   border: none;
   cursor: pointer;
 }
+button:hover::before {
+  content: attr(title);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+}

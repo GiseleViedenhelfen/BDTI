@@ -27,7 +27,6 @@ li {
   justify-content: space-between;
   align-items: center;
   border: 1px solid #334a54;
-  /* padding: 0.5rem; */
 }
 .btn-table-container {
   display: flex;
@@ -49,4 +48,10 @@ li {
   padding: 0.4rem 0.6rem;
   border-radius: 5px;
   border: 1px solid #334a54;
+}
+ul {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }

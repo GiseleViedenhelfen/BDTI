@@ -38,7 +38,7 @@ class TodoEditor extends Component {
     });
   };
 
-  handleClick = () => {
+  handleAddBtn = () => {
     // pega o valor da task a ser salva
     const { id, task, status } = this.state;
     // pega a action via props e a funcao para fechar o modal quando
@@ -47,6 +47,11 @@ class TodoEditor extends Component {
     // adiciona o valor da task no estado global chamando a editTodo
     editTodo({ id, task, status });
     // fecha o modal uma vez confirmada a edicao
+    onClose();
+  };
+
+  handleClosePop = () => {
+    const { onClose } = this.props;
     onClose();
   };
 
@@ -69,21 +74,19 @@ class TodoEditor extends Component {
               <button
                 disabled={btnDisable}
                 type="button"
-                onClick={this.handleClick}
+                onClick={this.handleAddBtn}
+                title="Salvar tarefa"
               >
                 <img src={saveIcon} alt="save-icon" width="20px" />
               </button>
-
-              { btnDisable
-          && (
-          // adiciona botao para retornar caso nao queira mais editar a tarefa
-          <button
-            type="button"
-            onClick={this.handleClick}
-          >
-            <img src={arrowLeft} alt="arrow-icon" width="20px" />
-          </button>
-          )}
+              {/* adiciona botao para retornar caso nao queira mais editar a tarefa */}
+              <button
+                title="Voltar"
+                type="button"
+                onClick={this.handleClosePop}
+              >
+                <img src={arrowLeft} alt="arrow-icon" width="20px" />
+              </button>
             </div>
           </form>
         </div>
