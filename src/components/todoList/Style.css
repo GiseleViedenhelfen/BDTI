@@ -1,7 +1,36 @@
-/* .todo-type-container {
-  display: flex;
-  justify-content: space-between;
-} */
 li {
   list-style-type: none;
+}
+.checkbox-icon {
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0.5rem;
+}
+
+.checkbox-icon input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox-icon .icon {
+  width: 20px;
+  height: 20px;
+  background-image: url('../../assets/icons/square.png');
+  background-size: contain;
+}
+
+.checkbox-icon input[type="checkbox"]:checked + .icon {
+  background-image: url('../../assets/icons/check-square.png');
+}
+.ul-task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  padding: 1rem;
+}
+.btn-table-container {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  gap: 1rem;
 }

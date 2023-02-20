@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editTodo as editTodoAction } from '../../Redux/actions';
+import arrowLeft from '../../assets/icons/arrow-elbow-down-left.png';
+import saveIcon from '../../assets/icons/file-plus.png';
 
 class TodoEditor extends Component {
   constructor(props) {
@@ -68,7 +70,7 @@ class TodoEditor extends Component {
             type="button"
             onClick={this.handleClick}
           >
-            Salvar alterações
+            <img src={saveIcon} alt="save-icon" width="20px" />
           </button>
           { btnDisable
           && (
@@ -77,7 +79,7 @@ class TodoEditor extends Component {
             type="button"
             onClick={this.handleClick}
           >
-            Voltar
+            <img src={arrowLeft} alt="arrow-icon" width="20px" />
           </button>
           )}
         </form>

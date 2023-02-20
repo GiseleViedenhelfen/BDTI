@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import thunk from 'redux-thunk';
-import todoReducer from '../reduces/addTodoReducer';
+import todoReducer from '../reduces/todoReducer';
 
 const persistConfig = {
   key: 'root',

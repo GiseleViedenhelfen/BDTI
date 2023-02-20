@@ -31,13 +31,14 @@ const todoReducer = (state = INICIAL_STATE, action) => {
         todos: state.todos
           .filter((todo) => todo.id !== action.payload),
       };
-      // caso nao seja nenhum desses casos, o que pelo codigo atual nao é possivel rs
-      // retorna o array original recebido.
+      // action para contar os todos por status
     case 'COUNT':
       return {
         ...state,
         count: action.payload,
       };
+      // caso nao seja nenhum desses casos, o que pelo codigo atual nao é possivel rs
+      // retorna o array original recebido.
     default:
       return state;
   }

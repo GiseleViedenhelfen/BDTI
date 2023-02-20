@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import addIcon from '../../assets/icons/file-plus.png';
 import { addTodo as addTodoAction } from '../../Redux/actions';
+import './Style.css';
 
 class AddTodo extends Component {
   constructor() {
@@ -24,6 +26,7 @@ class AddTodo extends Component {
 
   componentDidUpdate(prevProps) {
     const { todos } = this.props;
+    // compara se houve alterações no redux, caso tenha, registra no id
     if (prevProps.todos !== todos) {
       const copyTodo = [...todos];
       const newid = copyTodo.pop().id + 1;
@@ -65,24 +68,21 @@ class AddTodo extends Component {
       inputValue, btnDisable,
     } = this.state;
     return (
-      <div className="modal">
-        <h2>Adicionar Tarefa</h2>
-        <form>
-          <label htmlFor="todo-input">
-            Tarefa:
-            <input
-              type="text"
-              id="todo-input"
-              value={inputValue}
-              onChange={this.handleChange}
-            />
-          </label>
+      <div>
+        <form className="add-task-container">
+          <input
+            type="text"
+            id="todo-input"
+            placeholder="Adicione nova tarefa"
+            value={inputValue}
+            onChange={this.handleChange}
+          />
           <button
             type="button"
             disabled={btnDisable}
             onClick={this.handleClick}
           >
-            Adicionar
+            <img src={addIcon} alt="add-icon" width="25px" />
           </button>
         </form>
       </div>

@@ -1,0 +1,13 @@
+.add-task-container {
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+#todo-input {
+  border-radius: 5px;
+  padding: 0.5rem;
+  width: 40%;
+}
