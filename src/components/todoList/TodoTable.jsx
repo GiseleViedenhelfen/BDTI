@@ -44,6 +44,9 @@ class TodoTable extends Component {
             && (
               <div>
                 <TodoEditor
+                // passa a tarefa e a funcao para fechar o modal
+                // a ser editada via prop. Optei por nao salvá-los no redux
+                // por serem transmitidos apenas para o editTodo
                   todoToEdit={todoToEdit}
                   onClose={this.handleCloseModal}
                 />

@@ -38,16 +38,13 @@ class TodoEditor extends Component {
 
   handleClick = () => {
     // pega o valor da task a ser salva
-    const {
-      id, task, status,
-    } = this.state;
+    const { id, task, status } = this.state;
     // pega a action via props e a funcao para fechar o modal quando
     // terminar de editar a tarefa
     const { onClose, editTodo } = this.props;
-    // adiciona o valor da task no estado global se for uma tarefa nova,
-    // chama a action addTodo, se nao chama a editTodo
-    // const newId = id + 1;
+    // adiciona o valor da task no estado global chamando a editTodo
     editTodo({ id, task, status });
+    // fecha o modal uma vez confirmada a edicao
     onClose();
   };
 
