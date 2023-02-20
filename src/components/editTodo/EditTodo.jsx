@@ -17,26 +17,24 @@ class TodoEditor extends Component {
       task,
       status,
       inputValue: task,
+      btnDisable: true,
     };
-  }
-
-  componentDidMount() {
   }
 
   handleChange = ({ target }) => {
     // pega o valor do input
     const newTask = target.value;
+    // adiciona o trim para nao salvar possiveis espacos vazios
+    const trimNewTask = newTask.trim();
+    // verifica se o input está vazio, se estiver, ele fica desabilitado
+    const checkTaskLength = trimNewTask.length === 0;
     // salva no estado o valor do input e a task a ser colocada no estado global
     this.setState({
       inputValue: newTask,
-      // adiciona o trim para nao salvar possiveis espacos vazios
-      task: newTask.trim(),
+      task: trimNewTask,
+      btnDisable: checkTaskLength,
     });
   };
-
-  // handleStatusChange = ({ target }) => {
-  //   this.setState({ status: target.value });
-  // };
 
   handleClick = () => {
     // pega o valor da task a ser salva
@@ -54,12 +52,9 @@ class TodoEditor extends Component {
   };
 
   render() {
-    const {
-      inputValue,
-      // status,
-    } = this.state;
+    const { inputValue, btnDisable } = this.state;
     return (
-      <div className="modal">
+      <div>
         <h2>Editar Tarefa</h2>
         <form>
           <label htmlFor="todo-input">
@@ -71,13 +66,23 @@ class TodoEditor extends Component {
               onChange={this.handleChange}
             />
           </label>
-          {/* <select value={status} onChange={this.handleStatusChange}>
-            <option value="In-progress">Em andamento</option>
-            <option value="Done">Finalizada</option>
-          </select> */}
-          <button type="button" onClick={this.handleClick}>
-            Adicionar
+          <button
+            disabled={btnDisable}
+            type="button"
+            onClick={this.handleClick}
+          >
+            Salvar alterações
           </button>
+          { btnDisable
+          && (
+          // adiciona botao para retornar caso nao queira mais editar a tarefa
+          <button
+            type="button"
+            onClick={this.handleClick}
+          >
+            Voltar
+          </button>
+          )}
         </form>
       </div>
     );

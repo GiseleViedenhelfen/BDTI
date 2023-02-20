@@ -10,24 +10,24 @@ class AddTodo extends Component {
       id: 0,
       task: '',
       inputValue: '',
+      btnDisable: true,
     };
   }
 
   handleChange = ({ target }) => {
     // pega o valor do input
     const newTask = target.value;
+    // adiciona o trim para nao salvar possiveis espacos vazios
+    const trimNewTask = newTask.trim();
+    // verifica se o input está vazio, se estiver, ele fica desabilitado
+    const checkTaskLength = trimNewTask.length === 0;
     // salva no estado o valor do input e a task a ser colocada no estado global
     this.setState({
       inputValue: newTask,
-      // adiciona o trim para nao salvar possiveis espacos vazios
-      task: newTask.trim(),
+      task: trimNewTask,
+      btnDisable: checkTaskLength,
     });
   };
-
-  // handleStatusChange = ({ target }) => {
-  //   // atualiza o input de status
-  //   this.setState({ status: target.value });
-  // };
 
   handleClick = () => {
     const {
@@ -35,18 +35,17 @@ class AddTodo extends Component {
     } = this.state;
     // pega a action via props e a funcao para fechar o modal quando
     // terminar de editar a tarefa
-    const { addTodo, onClose } = this.props;
+    const { addTodo } = this.props;
     // adiciona o valor da task no estado global, chamando a action addTodo
-    // e cria as novas tarefas com o status de nova
+    // e cria as novas tarefas com o status em andamento
     addTodo({ id, task, status: 'In-progress' });
-    // atualiza o valor do id
-    this.setState({ id: id + 1 });
-    onClose();
+    // atualiza o valor do id e zera o input
+    this.setState({ id: id + 1, inputValue: '' });
   };
 
   render() {
     const {
-      inputValue,
+      inputValue, btnDisable,
     } = this.state;
     return (
       <div className="modal">
@@ -61,7 +60,11 @@ class AddTodo extends Component {
               onChange={this.handleChange}
             />
           </label>
-          <button type="button" onClick={this.handleClick}>
+          <button
+            type="button"
+            disabled={btnDisable}
+            onClick={this.handleClick}
+          >
             Adicionar
           </button>
         </form>
@@ -74,11 +77,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 AddTodo.propTypes = {
   addTodo: PropTypes.func.isRequired,
-  todos: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    task: PropTypes.string.isRequired,
-    status: PropTypes.oneOf(['New', 'In-progress', 'Done']).isRequired,
-  }).isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 export default connect(null, mapDispatchToProps)(AddTodo);

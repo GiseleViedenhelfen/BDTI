@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteTodo as deleteTodoAction, editTodo as editTodoAction } from '../../Redux/actions';
+import {
+  deleteTodo as deleteTodoAction, editTodo as editTodoAction,
+} from '../../Redux/actions';
 import TodoEditor from '../editTodo/EditTodo';
 import './Style.css';
-// import { connect } from 'react-redux';
-// import { editTodo as editTodoAction } from '../../Redux/actions';
 
 class TodoTable extends Component {
   constructor() {
@@ -36,6 +36,9 @@ class TodoTable extends Component {
               Editar
             </button>
             {/* renderiza o todoEditor apenas para a tarefa em edicao */}
+            <button type="button" onClick={() => this.handleDelete(todo.id)}>
+              Excluir
+            </button>
             { showEditTodo
             && todo.id === todoToEdit.id
             && (
@@ -46,9 +49,6 @@ class TodoTable extends Component {
                 />
               </div>
             )}
-            <button type="button" onClick={() => this.handleDelete(todo.id)}>
-              Excluir
-            </button>
           </li>
         </ul>
       ))
