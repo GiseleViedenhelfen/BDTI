@@ -1,7 +1,7 @@
-.todo-type-container {
+/* .todo-type-container {
   display: flex;
   justify-content: space-between;
-}
+} */
 li {
   list-style-type: none;
 }

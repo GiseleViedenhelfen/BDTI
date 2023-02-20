@@ -26,8 +26,12 @@ class TodoTable extends Component {
               type="checkbox"
               onChange={() => this.handleCheck(todo)}
             />
-            <span>{todo.task}</span>
-            <span>{todo.status}</span>
+            <span style={{
+              textDecoration: todo.status === 'Done' ? 'line-through' : 'none',
+            }}
+            >
+              {todo.task}
+            </span>
             <button type="button" onClick={() => this.handleEdit(todo)}>
               Editar
             </button>
