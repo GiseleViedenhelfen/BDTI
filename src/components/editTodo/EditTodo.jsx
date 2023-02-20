@@ -93,7 +93,7 @@ TodoEditor.propTypes = {
   todoToEdit: PropTypes.shape({
     id: PropTypes.number.isRequired,
     task: PropTypes.string.isRequired,
-    status: PropTypes.oneOf(['In-progress', 'Done']).isRequired,
+    status: PropTypes.oneOf(['InProgress', 'Done']).isRequired,
   }).isRequired,
   onClose: PropTypes.func.isRequired,
 };

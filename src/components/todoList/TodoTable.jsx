@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   deleteTodo as deleteTodoAction, editTodo as editTodoAction,
+  countTodos as countTodoAction,
 } from '../../Redux/actions';
 import TodoEditor from '../editTodo/EditTodo';
 import './Style.css';
@@ -13,7 +14,22 @@ class TodoTable extends Component {
     this.state = {
       showEditTodo: false,
       todoToEdit: null,
+      acc: 0,
     };
+  }
+
+  componentDidMount() {
+    const { todos, countTodos } = this.props;
+    const getCounter = countTodos(todos);
+    this.setState({ acc: getCounter.payload });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { todos, countTodos } = this.props;
+    if (prevProps.todos !== todos) {
+      const getCounter = countTodos(todos);
+      this.setState({ acc: getCounter.payload });
+    }
   }
 
   renderTodos = (arr) => {
@@ -67,7 +83,7 @@ class TodoTable extends Component {
   handleCheck = (todo) => {
     // Cria o toggle para trocar o status da tarefa de nova ou feita
     const { editTodo } = this.props;
-    const newStatus = todo.status === 'Done' ? 'In-progress' : 'Done';
+    const newStatus = todo.status === 'Done' ? 'InProgress' : 'Done';
     editTodo({ ...todo, status: newStatus });
   };
 
@@ -95,8 +111,8 @@ class TodoTable extends Component {
     const { todos } = this.props;
     // filtra as tarefas por status caso nao seja nem fazendo nem feitas, mostra todas
     switch (type) {
-      case 'In-progress':
-        return this.renderTodos(todos.filter((task) => task.status === 'In-progress'));
+      case 'InProgress':
+        return this.renderTodos(todos.filter((task) => task.status === 'InProgress'));
       case 'Done':
         return this.renderTodos(todos.filter((task) => task.status === 'Done'));
       default:
@@ -105,28 +121,28 @@ class TodoTable extends Component {
   };
 
   render() {
-    const { filter } = this.state;
+    const { filter, acc } = this.state;
     return (
       <div>
+        {console.log(acc)}
         <section className="todo-type-container">
           <button
             type="button"
             onClick={() => this.setState({ filter: null })}
           >
-            listar todas as tarefas
+            {`listar todas as tarefas (${acc.Total ? acc.Total : 0})`}
           </button>
           <button
             type="button"
-            onClick={() => this.setState({ filter: 'In-progress' })}
+            onClick={() => this.setState({ filter: 'InProgress' })}
           >
-            listar tarefas a fazer
-
+            {`listar tarefas a fazer (${acc.InProgress ? acc.InProgress : 0})`}
           </button>
           <button
             type="button"
             onClick={() => this.setState({ filter: 'Done' })}
           >
-            listar tarefas concluídas
+            {`listar tarefas a fazer (${acc.Done ? acc.Done : 0})`}
           </button>
         </section>
         {this.getTodosByFilter(filter)}
@@ -141,6 +157,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   deleteTodo: (id) => dispatch(deleteTodoAction(id)),
   editTodo: (newTodo) => dispatch(editTodoAction(newTodo)),
+  countTodos: (todos) => dispatch(countTodoAction(todos)),
 });
 
 TodoTable.propTypes = {
@@ -148,9 +165,10 @@ TodoTable.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       task: PropTypes.string.isRequired,
-      status: PropTypes.oneOf(['In-progress', 'Done']).isRequired,
+      status: PropTypes.oneOf(['InProgress', 'Done']).isRequired,
     }),
   ).isRequired,
+  countTodos: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
   editTodo: PropTypes.func.isRequired,
 

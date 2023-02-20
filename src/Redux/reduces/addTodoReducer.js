@@ -1,6 +1,12 @@
 // inicia a lista de tarefas vazia
 const INICIAL_STATE = {
   todos: [],
+  count: {
+    Todo: 0,
+    Doing: 0,
+    Done: 0,
+    Total: 0,
+  },
 };
 const todoReducer = (state = INICIAL_STATE, action) => {
   switch (action.type) {
@@ -27,6 +33,11 @@ const todoReducer = (state = INICIAL_STATE, action) => {
       };
       // caso nao seja nenhum desses casos, o que pelo codigo atual nao é possivel rs
       // retorna o array original recebido.
+    case 'COUNT':
+      return {
+        ...state,
+        count: action.payload,
+      };
     default:
       return state;
   }

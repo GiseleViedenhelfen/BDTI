@@ -14,6 +14,23 @@ class AddTodo extends Component {
     };
   }
 
+  componentDidMount() {
+    const { todos } = this.props;
+    if (todos.length > 0) {
+      const copyTodo = [...todos];
+      this.setState({ id: copyTodo.pop().id + 1 });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { todos } = this.props;
+    if (prevProps.todos !== todos) {
+      const copyTodo = [...todos];
+      const newid = copyTodo.pop().id + 1;
+      this.setState({ id: newid });
+    }
+  }
+
   handleChange = ({ target }) => {
     // pega o valor do input
     const newTask = target.value;
@@ -38,9 +55,9 @@ class AddTodo extends Component {
     const { addTodo } = this.props;
     // adiciona o valor da task no estado global, chamando a action addTodo
     // e cria as novas tarefas com o status em andamento
-    addTodo({ id, task, status: 'In-progress' });
-    // atualiza o valor do id e zera o input
-    this.setState({ id: id + 1, inputValue: '' });
+    addTodo({ id, task, status: 'InProgress' });
+    //  zera o input ao clicar
+    this.setState({ inputValue: '' });
   };
 
   render() {
@@ -72,10 +89,21 @@ class AddTodo extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  todos: state.todos,
+});
 const mapDispatchToProps = (dispatch) => ({
   addTodo: (newTodo) => dispatch(addTodoAction(newTodo)),
 });
 AddTodo.propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      task: PropTypes.string.isRequired,
+      status: PropTypes.oneOf(['InProgress', 'Done']).isRequired,
+    }),
+  ).isRequired,
   addTodo: PropTypes.func.isRequired,
 };
-export default connect(null, mapDispatchToProps)(AddTodo);
+export default connect(mapStateToProps, mapDispatchToProps)(AddTodo);

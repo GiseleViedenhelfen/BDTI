@@ -10,3 +10,16 @@ export const deleteTodo = (del) => ({
   type: 'DELETE',
   payload: del,
 });
+
+export const countTodos = (todos) => {
+  const todoByStatus = todos.reduce((acc, task) => {
+    const { status } = task;
+    acc[status] = acc[status] + 1 || 1;
+    acc.Total = acc.Total + 1 || 1;
+    return acc;
+  }, {});
+  return {
+    type: 'COUNT',
+    payload: todoByStatus,
+  };
+};
