@@ -1,5 +1,5 @@
 ## Todo list BDTI
-Um crud todo frontend que cria, edita, exclui e separa por status as tarefas.
+Um crud de lista de tarefas frontend que cria, edita, exclui e separa por status as tarefas. Utiliza redux para controlar o estado e local storage para manter as informações, pois não conta com backend para armazenar as informações. 
 ## 🛠️ Ferramentas
 - React
 - Redux
@@ -21,3 +21,5 @@ git clone git@github.com:GiseleViedenhelfen/BDTI.git
 ```bash
 http://localhost:3000
   ```
+
+- Caso prefira rodar localmente, navegue até a raiz do projeto e execute o comando npm install para instalar as dependências do projeto. Feito isso, execute o comando npm run e a aplicação estara disponível também na rota local 3000.
