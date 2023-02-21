@@ -12,7 +12,7 @@ Um crud todo frontend que cria, edita, exclui e separa por status as tarefas.
 Você precisa ter instalado as seguintes ferramentas: Git, Docker e Docker Compose, ou pode rodar localmente também se preferir.
 
 - Clone o repositório em uma pasta de sua preferência:
-git clone git@github.com:GiseleViedenhelfen/BDTI.git;
+git clone git@github.com:GiseleViedenhelfen/BDTI.git 
 
 - Entre na pasta raiz do projeto e rode o comando docker-compose up  para subir a aplicação e docker-compose down para parar completamente a aplicação;
 
