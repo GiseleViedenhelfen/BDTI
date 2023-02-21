@@ -31,6 +31,7 @@ li {
   justify-content: space-between;
   align-items: center;
   border: 2px solid #c0ceda;
+  margin: 1rem;
 }
 .btn-table-container {
   display: flex;
@@ -41,7 +42,6 @@ li {
 .todo-type-container {
   width: 60%;
   margin: 0 auto;
-  /* border: 1px solid black; */
   display: flex;
   align-items: center;
   justify-content: center;
