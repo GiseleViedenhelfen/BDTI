@@ -8,6 +8,8 @@ const INICIAL_STATE = {
     Total: 0,
   },
 };
+
+// o eslint nao aceita o paramentro incial ser default, mas esse é o padrao
 // eslint-disable-next-line default-param-last
 const todoReducer = (state = INICIAL_STATE, action) => {
   switch (action.type) {
