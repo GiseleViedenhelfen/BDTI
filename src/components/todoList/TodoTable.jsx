@@ -157,7 +157,7 @@ class TodoTable extends Component {
             type="button"
             onClick={() => this.setState({ filter: null })}
           >
-            {`Todas (${countTodosByStatus.Total ? countTodosByStatus.Total : 0})`}
+            {`Todas as Tarefas (${countTodosByStatus.Total ? countTodosByStatus.Total : 0})`}
           </button>
           <button
             type="button"

@@ -8,6 +8,7 @@ const INICIAL_STATE = {
     Total: 0,
   },
 };
+// eslint-disable-next-line default-param-last
 const todoReducer = (state = INICIAL_STATE, action) => {
   switch (action.type) {
     case 'ADD':

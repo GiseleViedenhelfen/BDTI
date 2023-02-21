@@ -51,6 +51,7 @@ li {
 .todo-type-container button {
   cursor: pointer;
   font-size: 14px;
+  width: 10rem;
   box-sizing: border-box;
   color: #334a54;
   padding: 0.4rem 0.6rem;
