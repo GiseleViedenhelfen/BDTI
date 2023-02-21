@@ -35,69 +35,71 @@ class TodoTable extends Component {
   }
 
   renderTodos = (todos) => {
+    const hasTasksToRender = todos.length > 0;
     const { showEditTodo, todoToEdit } = this.state;
     return (
       <ul>
-        {
-           todos.map((todo) => (
-             <div>
-               <li
-                 className="ul-task"
-                 key={todo.id}
-                 style={{ background: todo.status === 'Done' && 'gray' }}
-               >
-                 <div className="checkbox-text">
-                   <label className="checkbox-icon" htmlFor={todo.id}>
-                     <input
-                       id={todo.id}
-                       type="checkbox"
-                       checked={todo.status === 'Done'}
-                       onChange={() => this.handleCheck(todo)}
-                     />
-                     <li className="icon" />
-                   </label>
-                   <span style={{
-                     textDecoration: todo.status === 'Done' ? 'line-through' : 'none',
-                   }}
-                   >
-                     {todo.task}
-                   </span>
-                 </div>
-                 <div className="btn-table-container">
-                   <button
-                     type="button"
-                     title="Editar tarefa"
-                     onClick={() => this.handleEdit(todo)}
-                   >
-                     <img src={editIcon} alt="edit-icon" width="20px" />
-                   </button>
-                   {/* renderiza o todoEditor apenas para a tarefa em edicao */}
-                   <button
-                     type="button"
-                     title="Excluir tarefa"
-                     onClick={() => this.handleDelete(todo.id)}
-                   >
-                     <img src={deleteIcon} alt="delete-icon" width="20px" />
-                   </button>
-
-                 </div>
-               </li>
-               { showEditTodo
-                && todo.id === todoToEdit.id
-                && (
-                  <div>
-                    <TodoEditor
-                    // passa a tarefa e a funcao para fechar o modal
-                    // a ser editada via prop. Optei por nao salvá-los no redux
-                    // por serem transmitidos apenas para o editTodo
-                      todoToEdit={todoToEdit}
-                      onClose={this.handleCloseModal}
+        {hasTasksToRender ? (
+          todos.map((todo) => (
+            <div>
+              <li
+                className="ul-task"
+                key={todo.id}
+                style={{ background: todo.status === 'Done' && 'gray' }}
+              >
+                <div className="checkbox-text">
+                  <label className="checkbox-icon" htmlFor={todo.id}>
+                    <input
+                      id={todo.id}
+                      type="checkbox"
+                      checked={todo.status === 'Done'}
+                      onChange={() => this.handleCheck(todo)}
                     />
-                  </div>
-                )}
-             </div>
-           ))
-}
+                    <li className="icon" />
+                  </label>
+                  <span
+                    style={{
+                      textDecoration:
+                      todo.status === 'Done' ? 'line-through' : 'none',
+                    }}
+                  >
+                    {todo.task}
+                  </span>
+                </div>
+                <div className="btn-table-container">
+                  <button
+                    type="button"
+                    title="Editar tarefa"
+                    onClick={() => this.handleEdit(todo)}
+                  >
+                    <img src={editIcon} alt="edit-icon" width="20px" />
+                  </button>
+                  {/* renderiza o todoEditor apenas para a tarefa em edicao */}
+                  <button
+                    type="button"
+                    title="Excluir tarefa"
+                    onClick={() => this.handleDelete(todo.id)}
+                  >
+                    <img src={deleteIcon} alt="delete-icon" width="20px" />
+                  </button>
+                </div>
+              </li>
+              {showEditTodo && todo.id === todoToEdit.id && (
+              <div>
+                <TodoEditor
+                  // passa a tarefa e a funcao para fechar o modal
+                  // a ser editada via prop. Optei por nao salvá-los no redux
+                  // por serem transmitidos apenas para o editTodo
+                  todoToEdit={todoToEdit}
+                  onClose={this.handleCloseModal}
+                />
+              </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <p>Não há tarefas</p>
+        )}
       </ul>
     );
   };
