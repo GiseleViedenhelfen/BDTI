@@ -155,18 +155,21 @@ class TodoTable extends Component {
         <section className="todo-type-container">
           <button
             type="button"
+            data-testid="list-button"
             onClick={() => this.setState({ filter: null })}
           >
             {`Todas as Tarefas (${countTodosByStatus.Total ? countTodosByStatus.Total : 0})`}
           </button>
           <button
             type="button"
+            data-testid="list-inProgress-button"
             onClick={() => this.setState({ filter: 'InProgress' })}
           >
             {`Em andamento (${countTodosByStatus.InProgress ? countTodosByStatus.InProgress : 0})`}
           </button>
           <button
             type="button"
+            data-testid="list-done-button"
             onClick={() => this.setState({ filter: 'Done' })}
           >
             {`Concluídas (${countTodosByStatus.Done ? countTodosByStatus.Done : 0})`}
