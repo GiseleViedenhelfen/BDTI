@@ -5,3 +5,12 @@ header section{
   padding: 1rem;
   gap: 1rem;
 }
+header {
+  width: 60%;
+  margin: 0 auto;
+  padding-top: 3rem;
+  border-radius: 5px;
+  /* background-color: #f2f2f2 */
+  /* margin: 1rem; */
+  /* background-color: #6a6ca0; */
+}

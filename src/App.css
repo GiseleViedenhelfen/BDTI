@@ -3,29 +3,16 @@
   padding: 0;
 }
 body {
-  background-color: #f2f2f2;
+  background-color: #c0ceda;
   font-family: 'DM Sans';
   font-style: normal;
   color: #334a54;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 25px;
 }
 button {
   background-color: transparent;
   border: none;
   cursor: pointer;
-}
-button:hover::before {
-  content: attr(title);
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #333;
-  color: #fff;
-  padding: 5px;
-  border-radius: 5px;
-  font-size: 14px;
-  white-space: nowrap;
 }

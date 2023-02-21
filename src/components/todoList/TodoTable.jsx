@@ -41,7 +41,11 @@ class TodoTable extends Component {
         {
            todos.map((todo) => (
              <div>
-               <li className="ul-task" key={todo.id}>
+               <li
+                 className="ul-task"
+                 key={todo.id}
+                 style={{ background: todo.status === 'Done' && 'gray' }}
+               >
                  <div className="checkbox-text">
                    <label className="checkbox-icon" htmlFor={todo.id}>
                      <input
@@ -54,7 +58,6 @@ class TodoTable extends Component {
                    </label>
                    <span style={{
                      textDecoration: todo.status === 'Done' ? 'line-through' : 'none',
-                     color: todo.status === 'Done' ? 'red' : 'black',
                    }}
                    >
                      {todo.task}

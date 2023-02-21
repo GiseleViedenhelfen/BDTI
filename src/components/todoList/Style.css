@@ -2,6 +2,8 @@ li {
   list-style-type: none;
   margin: 1rem;
   border-radius: 20px;
+  color: #f2f2f2;
+  background: linear-gradient(90deg, #6a6ca0 0%, #84cccc 100%);
 }
 .checkbox-icon {
   cursor: pointer;
@@ -16,17 +18,19 @@ li {
   width: 20px;
   height: 20px;
   background-image: url('../../assets/icons/square.png');
+  filter: invert(100%); 
   background-size: contain;
 }
 
 .checkbox-icon input[type="checkbox"]:checked + .icon {
+  filter: invert(100%); 
   background-image: url('../../assets/icons/check-square.png');
 }
 .ul-task {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #334a54;
+  border: 2px solid #c0ceda;
 }
 .btn-table-container {
   display: flex;
@@ -35,10 +39,14 @@ li {
   gap: 1rem;
 }
 .todo-type-container {
+  width: 60%;
+  margin: 0 auto;
+  /* border: 1px solid black; */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  padding: 1rem;
 }
 .todo-type-container button {
   cursor: pointer;
@@ -47,11 +55,15 @@ li {
   color: #334a54;
   padding: 0.4rem 0.6rem;
   border-radius: 5px;
-  border: 1px solid #334a54;
+  border: 1px groove #0e959d;
+  box-shadow: 0 0 5px #2d357d;
 }
 ul {
-  width: 70%;
+  width: 60%;
   margin: 0 auto;
   display: flex;
+  border-radius: 5px;
   flex-direction: column;
+  background-color: #f2f2f2;
+  margin-bottom: 3rem;
 }
